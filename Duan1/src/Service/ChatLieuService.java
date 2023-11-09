@@ -3,11 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Service;
-
+import Model.ChatLieu;
+import java.sql.*;
+import java.util.List;
 /**
  *
  * @author admin
  */
 public class ChatLieuService {
-    
+    List<ChatLieu> getAll(){
+        System.out.println("dat xau trai");
+        
+    }
 }

@@ -1,11 +1,15 @@
 
 package View;
 
+import Connection.DBContext;
+import Model.MauSac;
 import Model.TaiKhoan;
+import Model.ThuongHieu;
 import Service.TaiKhoanService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
+import java.sql.*;
 public class ViewChuCuaHang extends javax.swing.JFrame {
     private DefaultTableModel dtm = new DefaultTableModel();
     private TaiKhoanService tks = new TaiKhoanService();
@@ -205,14 +209,14 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rdothuonghieu = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblthuoctinh = new javax.swing.JTable();
         jpthongke = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jLabel66 = new javax.swing.JLabel();
@@ -1563,14 +1567,29 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
 
         jButton8.setText("Ẩn");
 
-        jRadioButton1.setText("Thương hiệu");
+        buttonGroup1.add(rdothuonghieu);
+        rdothuonghieu.setText("Thương hiệu");
+        rdothuonghieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdothuonghieuActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Màu sắc");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Chất liệu");
 
+        buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("Phân loại");
 
+        buttonGroup1.add(jRadioButton6);
         jRadioButton6.setText("Xuất xứ");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1595,7 +1614,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rdothuonghieu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1616,7 +1635,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rdothuonghieu, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jRadioButton5)
                                 .addComponent(jRadioButton2)))))
@@ -1637,18 +1656,18 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin thuộc tính", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblthuoctinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Tên"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblthuoctinh);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -2715,6 +2734,29 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         fillTableTK();
     }//GEN-LAST:event_lblQuanLyTaiKhoanMouseClicked
 
+    private void rdothuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdothuonghieuActionPerformed
+        // TODO add your handling code here:
+        
+        dtm = (DefaultTableModel)tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for(ThuongHieu x:findTableTH()){
+            dtm.addRow(new Object[]{
+                x.getId(),x.getTen()
+            });
+        }
+    }//GEN-LAST:event_rdothuonghieuActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        dtm = (DefaultTableModel)tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for(MauSac x:findTableMS()){
+            dtm.addRow(new Object[]{
+                x.getId(),x.getTen()
+            });
+        }
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
     
     public static void main(String args[]) {
         
@@ -2734,6 +2776,46 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         }
     }
     
+    
+    private List<ThuongHieu> findTableTH(){
+        List<ThuongHieu> lth = new ArrayList<>();
+        try {
+            Connection cn = DBContext.getConnection();
+            String sql = "Select * from ThuongHieu";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                ThuongHieu th = new ThuongHieu();
+                th.setId(rs.getString("ID"));
+                th.setTen(rs.getString("TenTH"));
+                lth.add(th);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lth;
+    }
+    private List<MauSac> findTableMS(){
+        List<MauSac> lms = new ArrayList<>();
+        try {
+            Connection cn = DBContext.getConnection();
+            String sql = "Select * from MauSac";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                MauSac ms = new MauSac();
+                ms.setId(rs.getString("ID"));
+                ms.setTen(rs.getString("TenMS"));
+                lms.add(ms);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lms;
+    }
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndoimk;
     private javax.swing.JButton btnhdxoa;
@@ -2932,7 +3014,6 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton5;
@@ -2959,7 +3040,6 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable10;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
@@ -3005,12 +3085,14 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdokmdaketthuc;
     private javax.swing.JRadioButton rdokmdangdienra;
     private javax.swing.JRadioButton rdonv;
+    private javax.swing.JRadioButton rdothuonghieu;
     private javax.swing.JTable tblhddsgh;
     private javax.swing.JTable tblhddshd;
     private javax.swing.JTable tblhddssp;
     private javax.swing.JTable tblkmdskm;
     private javax.swing.JTable tblkmdssp;
     private javax.swing.JTable tbltaikhoan;
+    private javax.swing.JTable tblthuoctinh;
     private com.toedter.calendar.JDateChooser txtkmbatdau;
     private javax.swing.JTextField txtkmden;
     private com.toedter.calendar.JDateChooser txtkmketthuc;

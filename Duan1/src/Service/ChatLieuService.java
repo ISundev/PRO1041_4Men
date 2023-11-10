@@ -11,7 +11,5 @@ import java.util.List;
  * @author admin
  */
 public class ChatLieuService {
-    List<ChatLieu> getAll(){
-        
-    }
+    
 }

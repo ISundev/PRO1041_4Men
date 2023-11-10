@@ -15,8 +15,8 @@ Create table TaiKhoan(
 	VaiTro nvarchar(20),
 	TrangThai BIT
 )
-Insert into TaiKhoan(TenDangNhap,MatKhau,VaiTro,TrangThai) values('NV0001','1',N'Nhân Viên',0)
-select * from TaiKhoan
+--Insert into TaiKhoan(TenDangNhap,MatKhau,VaiTro,TrangThai) values('NV0001','1',N'Nhân Viên',0)
+--select * from TaiKhoan
 Create table NhanVien(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
 	IDTaiKhoan uniqueidentifier,
@@ -30,10 +30,10 @@ Create table NhanVien(
 	TrangThai BIT
 	FOREIGN KEY(IDTaiKhoan) REFERENCES TaiKhoan(ID)
 )
-Insert into NhanVien(IDTaiKhoan,MaNV,HoTen,GioiTinh,NgaySinh,DiaChi,SDT,Email,TrangThai) 
-values('DEFCA3BB-BE3B-40BC-956E-471E7B88E554','NV0001',N'Lương Tuấn Đạt',N'Nam','2004-11-14',
-N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com',0)
-select * from NhanVien
+--Insert into NhanVien(IDTaiKhoan,MaNV,HoTen,GioiTinh,NgaySinh,DiaChi,SDT,Email,TrangThai) 
+--values('DEFCA3BB-BE3B-40BC-956E-471E7B88E554','NV0001',N'Lương Tuấn Đạt',N'Nam','2004-11-14',
+--N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com',0)
+--select * from NhanVien
 Create table KhachHang(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
 	MaKH varchar(30),
@@ -43,9 +43,13 @@ Create table KhachHang(
 	SDT varchar(15),
 	Email varchar(30)
 )
-Insert into KhachHang(MaKH,HoTen,NgaySinh,DiaChi,SDT,Email) 
-values('KH0001',N'Lương Tuấn Đạt','2004-11-14',N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com')
-select * from KhachHang
+--Insert into KhachHang(MaKH,HoTen,NgaySinh,DiaChi,SDT,Email) 
+--values('KH0001',N'Lương Tuấn Đạt','2004-11-14',N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com')
+--select * from KhachHang
+Create table LoaiGG(
+	ID uniqueidentifier not null DEFAULT (newid()) primary key,
+	TenLoai nvarchar(40)
+)
 Create table GiamGia(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
 	IDML uniqueidentifier,
@@ -58,15 +62,12 @@ Create table GiamGia(
 	TrangThai BIT,
 	FOREIGN KEY(IDML) REFERENCES LoaiGG(ID)
 )
-Insert into GiamGia(IDML,MaGG,Ten,GiaTri,NgayBatDau,NgayHetHan,GhiChu,TrangThai) values
-('D648EAAA-74CA-4411-98F1-D426EB98FE66','GG0001',N'Quốc tế phụ nữ',100000,GETDATE(),GETDATE()+10,N'Mừng ngày quốc tế phụ nữ 20/10 tặng giảm giá',0)
-Insert into GiamGia(IDML,MaGG,Ten,GiaTri,NgayBatDau,NgayHetHan,GhiChu,TrangThai) values
-('C8BC688F-4011-46A5-A1EE-19CA20177090','GG0002',N'Nhà giáo Việt Nam',10,GETDATE(),GETDATE()+10,N'Mừng ngày nhà giáo Việt Nam 20/11 tặng giảm giá',0)
-select * from GiamGia
-Create table LoaiGG(
-	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenLoai nvarchar(40)
-)
+--Insert into GiamGia(IDML,MaGG,Ten,GiaTri,NgayBatDau,NgayHetHan,GhiChu,TrangThai) values
+--('D648EAAA-74CA-4411-98F1-D426EB98FE66','GG0001',N'Quốc tế phụ nữ',100000,GETDATE(),GETDATE()+10,N'Mừng ngày quốc tế phụ nữ 20/10 tặng giảm giá',0)
+--Insert into GiamGia(IDML,MaGG,Ten,GiaTri,NgayBatDau,NgayHetHan,GhiChu,TrangThai) values
+--('C8BC688F-4011-46A5-A1EE-19CA20177090','GG0002',N'Nhà giáo Việt Nam',10,GETDATE(),GETDATE()+10,N'Mừng ngày nhà giáo Việt Nam 20/11 tặng giảm giá',0)
+--select * from GiamGia
+
 insert into LoaiGG(TenLoai) values (N'Giảm giá theo số tiền')
 insert into LoaiGG(TenLoai) values (N'Giảm giá theo %')
 select * from LoaiGG
@@ -107,23 +108,34 @@ Create table SanPham(
 )
 Create table ThuongHieu(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenTH nvarchar(30)
+	TenTH nvarchar(30),
+	TrangThai BIT
 )
+insert into ThuongHieu(TenTH) values('1')
+insert into ThuongHieu(TenTH) values('2')
+insert into ThuongHieu(TenTH) values('3')
 Create table XuatXu(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenXX nvarchar(30)
+	TenXX nvarchar(30),
+	TrangThai BIT
 )
 Create table MauSac(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenMS nvarchar(30)
+	TenMS nvarchar(30),
+	TrangThai BIT
 )
+insert into MauSac(TenMS) values('Đỏ')
+insert into MauSac(TenMS) values('Xanh')
+insert into MauSac(TenMS) values('Vàng')
 Create table ChatLieu(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenCL nvarchar(30)
+	TenCL nvarchar(30),
+	TrangThai BIT
 )
 Create table PhanLoai(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
-	TenPL nvarchar(30)
+	TenPL nvarchar(30),
+	TrangThai BIT
 )
 Create table SanPhamChiTiet(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,

@@ -9,5 +9,8 @@ package Service;
  * @author admin
  */
 public class SanPhamService {
-    
+    public void findtt(){
+        String tt = null;
+        
+    }
 }

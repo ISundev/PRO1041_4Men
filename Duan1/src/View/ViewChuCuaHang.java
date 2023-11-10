@@ -1,20 +1,24 @@
-
 package View;
 
 import Connection.DBContext;
+import Model.ChatLieu;
 import Model.MauSac;
+import Model.PhanLoai;
 import Model.TaiKhoan;
 import Model.ThuongHieu;
+import Model.XuatXu;
 import Service.TaiKhoanService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+
 public class ViewChuCuaHang extends javax.swing.JFrame {
+
     private DefaultTableModel dtm = new DefaultTableModel();
     private TaiKhoanService tks = new TaiKhoanService();
     private int i = -1;
-    
+
     public ViewChuCuaHang() {
         initComponents();
         jpchao.setVisible(true);
@@ -28,7 +32,6 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jpdoimk.setVisible(false);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,10 +213,10 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         rdothuonghieu = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        rdomausac = new javax.swing.JRadioButton();
+        rdochatlieu = new javax.swing.JRadioButton();
+        rdophanloai = new javax.swing.JRadioButton();
+        rdoxuatxu = new javax.swing.JRadioButton();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblthuoctinh = new javax.swing.JTable();
@@ -1575,22 +1578,37 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Màu sắc");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rdomausac);
+        rdomausac.setText("Màu sắc");
+        rdomausac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rdomausacActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Chất liệu");
+        buttonGroup1.add(rdochatlieu);
+        rdochatlieu.setText("Chất liệu");
+        rdochatlieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdochatlieuActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("Phân loại");
+        buttonGroup1.add(rdophanloai);
+        rdophanloai.setText("Phân loại");
+        rdophanloai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdophanloaiActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setText("Xuất xứ");
+        buttonGroup1.add(rdoxuatxu);
+        rdoxuatxu.setText("Xuất xứ");
+        rdoxuatxu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoxuatxuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -1613,14 +1631,14 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                         .addComponent(jButton8)))
                 .addGap(46, 46, 46)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdochatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rdothuonghieu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rdomausac, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdoxuatxu, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jRadioButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rdophanloai, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -1637,14 +1655,14 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rdothuonghieu, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton5)
-                                .addComponent(jRadioButton2)))))
+                                .addComponent(rdophanloai)
+                                .addComponent(rdomausac)))))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton6)))
+                            .addComponent(rdochatlieu)
+                            .addComponent(rdoxuatxu)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2645,7 +2663,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jpkhachhang.setVisible(false);
         jplichsu.setVisible(false);
         jpkhuyenmai.setVisible(false);
-        jpdoimk.setVisible(false);    
+        jpdoimk.setVisible(false);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -2724,68 +2742,93 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jpkhachhang.setVisible(false);
         jplichsu.setVisible(false);
         jpkhuyenmai.setVisible(false);
-        
+
         lblmkm.setVisible(false);
         lblmkxn.setVisible(false);
         txtmkm.setVisible(false);
         txtmkxn.setVisible(false);
-        
-        
+
         fillTableTK();
     }//GEN-LAST:event_lblQuanLyTaiKhoanMouseClicked
 
     private void rdothuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdothuonghieuActionPerformed
-        // TODO add your handling code here:
-        
-        dtm = (DefaultTableModel)tblthuoctinh.getModel();
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
         dtm.setRowCount(0);
-        for(ThuongHieu x:findTableTH()){
+        for (ThuongHieu x : findTableTH()) {
             dtm.addRow(new Object[]{
-                x.getId(),x.getTen()
+                x.getId(), x.getTen()
             });
         }
     }//GEN-LAST:event_rdothuonghieuActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-        dtm = (DefaultTableModel)tblthuoctinh.getModel();
+    private void rdomausacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdomausacActionPerformed
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
         dtm.setRowCount(0);
-        for(MauSac x:findTableMS()){
+        for (MauSac x : findTableMS()) {
             dtm.addRow(new Object[]{
-                x.getId(),x.getTen()
+                x.getId(), x.getTen()
             });
         }
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rdomausacActionPerformed
 
-    
+    private void rdophanloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdophanloaiActionPerformed
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (PhanLoai x : findTablePL()) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
+    }//GEN-LAST:event_rdophanloaiActionPerformed
+
+    private void rdochatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdochatlieuActionPerformed
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (ChatLieu x : findTableCL()) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
+    }//GEN-LAST:event_rdochatlieuActionPerformed
+
+    private void rdoxuatxuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoxuatxuActionPerformed
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (XuatXu x : findTableXX()) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
+    }//GEN-LAST:event_rdoxuatxuActionPerformed
+
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ViewChuCuaHang().setVisible(true);
             }
         });
     }
-    private void fillTableTK(){
-        dtm =(DefaultTableModel)tbltaikhoan.getModel();
+
+    private void fillTableTK() {
+        dtm = (DefaultTableModel) tbltaikhoan.getModel();
         dtm.setRowCount(0);
-        for(TaiKhoan x:tks.getAll()){
+        for (TaiKhoan x : tks.getAll()) {
             dtm.addRow(new Object[]{
-                x.getId(),x.getTenDangNhap(),x.getMatKhau(),x.getVaiTro()
+                x.getId(), x.getTenDangNhap(), x.getMatKhau(), x.getVaiTro()
             });
         }
     }
-    
-    
-    private List<ThuongHieu> findTableTH(){
+
+    private List<ThuongHieu> findTableTH() {
         List<ThuongHieu> lth = new ArrayList<>();
         try {
             Connection cn = DBContext.getConnection();
             String sql = "Select * from ThuongHieu";
             PreparedStatement pstm = cn.prepareStatement(sql);
-            
+
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ThuongHieu th = new ThuongHieu();
                 th.setId(rs.getString("ID"));
                 th.setTen(rs.getString("TenTH"));
@@ -2796,15 +2839,16 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         }
         return lth;
     }
-    private List<MauSac> findTableMS(){
+
+    private List<MauSac> findTableMS() {
         List<MauSac> lms = new ArrayList<>();
         try {
             Connection cn = DBContext.getConnection();
             String sql = "Select * from MauSac";
             PreparedStatement pstm = cn.prepareStatement(sql);
-            
+
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 MauSac ms = new MauSac();
                 ms.setId(rs.getString("ID"));
                 ms.setTen(rs.getString("TenMS"));
@@ -2815,7 +2859,67 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         }
         return lms;
     }
-            
+
+    private List<PhanLoai> findTablePL() {
+        List<PhanLoai> lpl = new ArrayList<>();
+        try {
+            Connection cn = DBContext.getConnection();
+            String sql = "Select * from PhanLoai";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                PhanLoai ms = new PhanLoai();
+                ms.setId(rs.getString("ID"));
+                ms.setTen(rs.getString("TenPL"));
+                lpl.add(ms);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lpl;
+    }
+
+    private List<ChatLieu> findTableCL() {
+        List<ChatLieu> lcl = new ArrayList<>();
+        try {
+            Connection cn = DBContext.getConnection();
+            String sql = "Select * from ChatLieu";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                ChatLieu ms = new ChatLieu();
+                ms.setId(rs.getString("ID"));
+                ms.setTen(rs.getString("TenCL"));
+                lcl.add(ms);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lcl;
+    }
+
+    private List<XuatXu> findTableXX() {
+        List<XuatXu> lxx = new ArrayList<>();
+        try {
+            Connection cn = DBContext.getConnection();
+            String sql = "Select * from XuatXu";
+            PreparedStatement pstm = cn.prepareStatement(sql);
+
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                XuatXu ms = new XuatXu();
+                ms.setId(rs.getString("ID"));
+                ms.setTen(rs.getString("TenXX"));
+                lxx.add(ms);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lxx;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btndoimk;
     private javax.swing.JButton btnhdxoa;
@@ -3014,10 +3118,6 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -3082,10 +3182,14 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblmkm;
     private javax.swing.JLabel lblmkxn;
     private javax.swing.JRadioButton rdocch;
+    private javax.swing.JRadioButton rdochatlieu;
     private javax.swing.JRadioButton rdokmdaketthuc;
     private javax.swing.JRadioButton rdokmdangdienra;
+    private javax.swing.JRadioButton rdomausac;
     private javax.swing.JRadioButton rdonv;
+    private javax.swing.JRadioButton rdophanloai;
     private javax.swing.JRadioButton rdothuonghieu;
+    private javax.swing.JRadioButton rdoxuatxu;
     private javax.swing.JTable tblhddsgh;
     private javax.swing.JTable tblhddshd;
     private javax.swing.JTable tblhddssp;

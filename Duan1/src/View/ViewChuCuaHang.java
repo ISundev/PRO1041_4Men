@@ -5,6 +5,7 @@ import Model.ChatLieu;
 import Model.MauSac;
 import Model.NhanVien;
 import Model.PhanLoai;
+import Model.SanPhamChiTiet;
 import Model.TaiKhoan;
 import Model.ThuongHieu;
 import Model.XuatXu;
@@ -57,9 +58,50 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jpdoimk.setVisible(false);
         loadttsp();
         loadDataNV();
+        FillTH();
 
     }
-/*------------------------------Nhân Viên----------------------------------------------------------*/
+    
+    public void loadDataSP(){
+        String sql = "  select MaSP,TenSP,KhoiLuong,SoLuong,KichThuoc,Gia,MoTa ,Anh,IDTH,IDMS,IDPL,IDCL,IDXX from SanPham \n" +
+"  join SanPhamChiTiet on SanPham.ID = SanPhamChiTiet.IDSP";
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            listnv.clear();
+
+            while (rs.next()) {
+//                String ma = rs.getString(1);
+//                String ten = rs.getString(2);
+                String kichthuoc = rs.getString(3);
+                Float dongia = rs.getFloat(4);
+                Integer soluong = rs.getInt(5);
+                Float khoiluong = rs.getFloat(6);
+                String anh = rs.getString(14);
+                
+                String mota = rs.getString(7);
+                String diachi = rs.getString(8);
+                String idsp = rs.getString(9);
+                String idms = rs.getString(10);
+                String idpl = rs.getString(11);
+                String idcl = rs.getString(12);
+                String idxx = rs.getString(13);
+                String idth = rs.getString(13);
+
+                SanPhamChiTiet d = new SanPhamChiTiet(idxx, idsp, idcl, idpl, idth, idxx, idms, khoiluong, anh, soluong, mota, kichthuoc, dongia);
+                listnv.add(d);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+
+    /*------------------------------Nhân Viên----------------------------------------------------------*/
     public void loadDataNV() {
         String sql = "Select MaNV,HoTen,GioiTinh,NgaySinh,SDT,Email,DiaChi,TrangThai FROM NhanVien";
         try {
@@ -92,17 +134,17 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         }
 
     }
-    
+
     public void Display(int b) {
         NhanVien db = listnv.get(b);
         txtnvmanv.setText(db.getMaNV());
         txtnvtennv.setText(db.getTenNV());
         txtnvgioitinh.setText(db.getGioiTinh());
-        txtnvngaysinh.setDate(db.getNgaySinh());     
+        txtnvngaysinh.setDate(db.getNgaySinh());
         txtnvdiachi.setText(db.getDiaChi());
         txtnvsodt.setText(db.getSdt());
         txtnvemail.setText(db.getEmail());
-        
+
     }
 
     private void themnv() {
@@ -110,13 +152,10 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         String ten = txtnvtennv.getText();
         String gioitinh = txtnvgioitinh.getText();
         Date ngaysinh = txtnvngaysinh.getDate();
-        
-        
+
         String diachi = txtnvdiachi.getText();
         String sdt = txtnvsodt.getText();
         String email = txtnvemail.getText();
-        
-        
 
         NhanVien dd = new NhanVien();
         dd.setMaNV(manv);
@@ -126,7 +165,6 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         dd.setDiaChi(diachi);
         dd.setSdt(sdt);
         dd.setEmail(email);
-        
 
         boolean themResult = servicenv.them(dd);
         if (themResult) {
@@ -136,19 +174,16 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Thêm không thành công.");
         }
     }
-    
+
     private void xoanv() {
         String manv = txtnvmanv.getText();
         String ten = txtnvtennv.getText();
         String gioitinh = txtnvgioitinh.getText();
         Date ngaysinh = txtnvngaysinh.getDate();
-        
-        
+
         String diachi = txtnvdiachi.getText();
         String sdt = txtnvsodt.getText();
         String email = txtnvemail.getText();
-        
-        
 
         NhanVien dd = new NhanVien();
         dd.setMaNV(manv);
@@ -167,18 +202,16 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Xóa không thành công.");
         }
     }
-    
+
     private void suanv() {
         String manv = txtnvmanv.getText();
         String ten = txtnvtennv.getText();
         String gioitinh = txtnvgioitinh.getText();
         Date ngaysinh = txtnvngaysinh.getDate();
-        
-        
+
         String diachi = txtnvdiachi.getText();
         String sdt = txtnvsodt.getText();
         String email = txtnvemail.getText();
-        
 
         NhanVien dd = new NhanVien();
         dd.setMaNV(manv);
@@ -197,10 +230,10 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sửa không thành công.");
         }
     }
-/*------------------------------Nhân Viên----------------------------------------------------------*/
-    
-    
-/*------------------------------Thuộc tính sản phẩm----------------------------------------------------------*/  
+
+    /*------------------------------Nhân Viên----------------------------------------------------------*/
+
+ /*------------------------------Thuộc tính sản phẩm----------------------------------------------------------*/
     public void displaytt(int a) {
         if (rdothuonghieu.isSelected()) {
             ThuongHieu m0 = lthuonghieu.get(a);
@@ -224,7 +257,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             txtttid.setText(m4.getId());
         }
     }
-    
+
     private void themttsp() {
         String tentt = txttentt.getText();
         if (rdothuonghieu.isSelected()) {
@@ -356,7 +389,8 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             }
         }
     }
-/*------------------------------Thuộc tính sản phẩm----------------------------------------------------------*/  
+
+    /*------------------------------Thuộc tính sản phẩm----------------------------------------------------------*/
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -3148,64 +3182,32 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     }//GEN-LAST:event_rdothuonghieuMouseClicked
 
     private void rdothuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdothuonghieuActionPerformed
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (ThuongHieu x : findTableTH()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
+        FillTH();
     }//GEN-LAST:event_rdothuonghieuActionPerformed
 
     private void rdomausacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdomausacActionPerformed
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (MauSac x : findTableMS()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
+        FillMS();
     }//GEN-LAST:event_rdomausacActionPerformed
 
     private void rdophanloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdophanloaiActionPerformed
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (PhanLoai x : findTablePL()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
+        FillPL();
     }//GEN-LAST:event_rdophanloaiActionPerformed
 
     private void rdochatlieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdochatlieuActionPerformed
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (ChatLieu x : findTableCL()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
+        FillCL();
     }//GEN-LAST:event_rdochatlieuActionPerformed
 
     private void rdoxuatxuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoxuatxuActionPerformed
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (XuatXu x : findTableXX()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
+        FillXX();
     }//GEN-LAST:event_rdoxuatxuActionPerformed
 
     private void btnttthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnttthemActionPerformed
         themttsp();
-
     }//GEN-LAST:event_btnttthemActionPerformed
 
     private void tblthuoctinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblthuoctinhMouseClicked
         i = tblthuoctinh.getSelectedRow();
         displaytt(i);
-
     }//GEN-LAST:event_tblthuoctinhMouseClicked
 
     private void btnttsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnttsuaActionPerformed
@@ -3252,105 +3254,125 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         }
     }
 
-    private List<ThuongHieu> findTableTH() {
-        List<ThuongHieu> lth = new ArrayList<>();
+    void FillTH() {
+        String sql = "Select * from ThuongHieu ";
         try {
-            Connection cn = DBContext.getConnection();
-            String sql = "Select * from ThuongHieu";
-            PreparedStatement pstm = cn.prepareStatement(sql);
-
-            ResultSet rs = pstm.executeQuery();
-            lth.clear();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            lthuonghieu.clear();
             while (rs.next()) {
-                ThuongHieu th = new ThuongHieu();
-                th.setId(rs.getString("ID"));
-                th.setTen(rs.getString("TenTH"));
-                lth.add(th);
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                ThuongHieu d = new ThuongHieu(id, ten);
+                lthuonghieu.add(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lth;
+
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (ThuongHieu x : lthuonghieu) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
     }
 
-    private List<MauSac> findTableMS() {
-        List<MauSac> lms = new ArrayList<>();
+    void FillMS() {
+        String sql1 = "Select * from MauSac";
         try {
-            Connection cn = DBContext.getConnection();
-            String sql = "Select * from MauSac";
-            PreparedStatement pstm = cn.prepareStatement(sql);
-
-            ResultSet rs = pstm.executeQuery();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql1);
+            lmausac.clear();
             while (rs.next()) {
-                MauSac ms = new MauSac();
-                ms.setId(rs.getString("ID"));
-                ms.setTen(rs.getString("TenMS"));
-                lms.add(ms);
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                MauSac d = new MauSac(id, ten);
+                lmausac.add(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lms;
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (MauSac x : lmausac) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
     }
 
-    private List<PhanLoai> findTablePL() {
-        List<PhanLoai> lpl = new ArrayList<>();
+    void FillPL() {
+        String sql2 = "Select * from PhanLoai";
         try {
-            Connection cn = DBContext.getConnection();
-            String sql = "Select * from PhanLoai";
-            PreparedStatement pstm = cn.prepareStatement(sql);
-
-            ResultSet rs = pstm.executeQuery();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql2);
+            lphanloai.clear();
             while (rs.next()) {
-                PhanLoai ms = new PhanLoai();
-                ms.setId(rs.getString("ID"));
-                ms.setTen(rs.getString("TenPL"));
-                lpl.add(ms);
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                PhanLoai d = new PhanLoai(id, ten);
+                lphanloai.add(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lpl;
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (PhanLoai x : lphanloai) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
     }
 
-    private List<ChatLieu> findTableCL() {
-        List<ChatLieu> lcl = new ArrayList<>();
+    void FillCL() {
+        String sql3 = "Select * from ChatLieu";
         try {
-            Connection cn = DBContext.getConnection();
-            String sql = "Select * from ChatLieu";
-            PreparedStatement pstm = cn.prepareStatement(sql);
-
-            ResultSet rs = pstm.executeQuery();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql3);
+            lchatlieu.clear();
             while (rs.next()) {
-                ChatLieu ms = new ChatLieu();
-                ms.setId(rs.getString("ID"));
-                ms.setTen(rs.getString("TenCL"));
-                lcl.add(ms);
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                ChatLieu d = new ChatLieu(id, ten);
+                lchatlieu.add(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lcl;
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (ChatLieu x : lchatlieu) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
     }
 
-    private List<XuatXu> findTableXX() {
-        List<XuatXu> lxx = new ArrayList<>();
+    void FillXX() {
+        String sql4 = "Select * from XuatXu";
         try {
-            Connection cn = DBContext.getConnection();
-            String sql = "Select * from XuatXu";
-            PreparedStatement pstm = cn.prepareStatement(sql);
-
-            ResultSet rs = pstm.executeQuery();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql4);
+            lxuatxu.clear();
             while (rs.next()) {
-                XuatXu ms = new XuatXu();
-                ms.setId(rs.getString("ID"));
-                ms.setTen(rs.getString("TenXX"));
-                lxx.add(ms);
+                String id = rs.getString(1);
+                String ten = rs.getString(2);
+                XuatXu d = new XuatXu(id, ten);
+                lxuatxu.add(d);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return lxx;
+        dtm = (DefaultTableModel) tblthuoctinh.getModel();
+        dtm.setRowCount(0);
+        for (XuatXu x : lxuatxu) {
+            dtm.addRow(new Object[]{
+                x.getId(), x.getTen()
+            });
+        }
     }
 
 
@@ -3646,116 +3668,17 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private javax.swing.JLabel txtttid;
     // End of variables declaration//GEN-END:variables
     void loadttsp() {
-        
-        String sql = "Select * from ThuongHieu ";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            lthuonghieu.clear();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String ten = rs.getString(2);
-                ThuongHieu d = new ThuongHieu(id, ten);
-                lthuonghieu.add(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (ThuongHieu x : findTableTH()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
-
-        String sql1 = "Select * from MauSac";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql1);
-            lmausac.clear();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String ten = rs.getString(2);
-                MauSac d = new MauSac(id, ten);
-                lmausac.add(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (MauSac x : findTableMS()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
-
-        String sql2 = "Select * from PhanLoai";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql2);
-            lphanloai.clear();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String ten = rs.getString(2);
-                PhanLoai d = new PhanLoai(id, ten);
-                lphanloai.add(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (PhanLoai x : findTablePL()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
-
-        String sql3 = "Select * from ChatLieu";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql3);
-            lchatlieu.clear();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String ten = rs.getString(2);
-                ChatLieu d = new ChatLieu(id, ten);
-                lchatlieu.add(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (ChatLieu x : findTableCL()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
-        }
-
-        String sql4 = "Select * from XuatXu";
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql4);
-            lxuatxu.clear();
-            while (rs.next()) {
-                String id = rs.getString(1);
-                String ten = rs.getString(2);
-                XuatXu d = new XuatXu(id, ten);
-                lxuatxu.add(d);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dtm = (DefaultTableModel) tblthuoctinh.getModel();
-        dtm.setRowCount(0);
-        for (XuatXu x : findTableXX()) {
-            dtm.addRow(new Object[]{
-                x.getId(), x.getTen()
-            });
+        if (rdothuonghieu.isSelected()) {
+            FillTH();
+        } else if (rdomausac.isSelected()) {
+            FillMS();
+        } else if (rdophanloai.isSelected()) {
+            FillPL();
+        } else if (rdochatlieu.isSelected()) {
+            FillCL();
+        } else if (rdoxuatxu.isSelected()) {
+            FillXX();
         }
     }
+
 }

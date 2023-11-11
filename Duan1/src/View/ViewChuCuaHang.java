@@ -2788,7 +2788,12 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
     private TaiKhoan readForm(){
         TaiKhoan tk = new TaiKhoan();
         tk.setTenDangNhap(txttendangnhap.getText());
-        tk.setMatKhau(txtmk.get);
+        tk.setMatKhau(txtmk.getText());
+        if(rdonv.isSelected()){
+            tk.setVaiTro("Nhân Viên");
+        }else{
+            tk.setVaiTro("Chủ cửa hàng");
+        }
         return tk;
     }
     private void rdothuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdothuonghieuActionPerformed
@@ -2852,7 +2857,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        ------
+        
     }//GEN-LAST:event_btnthemActionPerformed
 
     

@@ -9,7 +9,7 @@ Use DuAn1_4Men
 go
 
 Create table TaiKhoan(
-	ID uniqueidentifier not null DEFAULT (newid()) primary key,
+	ID varchar not null DEFAULT CAST(NEWID() AS varchar(40)) primary key,
 	TenDangNhap varchar(30),
 	MatKhau varchar(15),
 	VaiTro nvarchar(20),

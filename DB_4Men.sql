@@ -15,12 +15,15 @@ Create table TaiKhoan(
 	VaiTro nvarchar(20),
 	TrangThai BIT
 )
---Insert into TaiKhoan(TenDangNhap,MatKhau,VaiTro,TrangThai) values('NV0001','1',N'Nhân Viên',0)
---select * from TaiKhoan
+Insert into TaiKhoan(TenDangNhap,MatKhau,VaiTro,TrangThai) values('NV0001','1',N'Nhân Viên',0)
+select * from TaiKhoan
+
+Insert into TaiKhoan(TenDangNhap,MatKhau,VaiTro,TrangThai) values('CCH0001','1',N'Chủ cửa hàng',0)
+select * from TaiKhoan
 Create table NhanVien(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
 	IDTaiKhoan uniqueidentifier,
-	MaNV varchar(30),
+	MaNV varchar(30),	
 	HoTen nvarchar(40),
 	GioiTinh nvarchar(10),
 	NgaySinh date,
@@ -30,15 +33,16 @@ Create table NhanVien(
 	TrangThai BIT
 	FOREIGN KEY(IDTaiKhoan) REFERENCES TaiKhoan(ID)
 )
---Insert into NhanVien(IDTaiKhoan,MaNV,HoTen,GioiTinh,NgaySinh,DiaChi,SDT,Email,TrangThai) 
---values('DEFCA3BB-BE3B-40BC-956E-471E7B88E554','NV0001',N'Lương Tuấn Đạt',N'Nam','2004-11-14',
---N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com',0)
+Insert into NhanVien(IDTaiKhoan,MaNV,HoTen,GioiTinh,NgaySinh,DiaChi,SDT,Email,TrangThai) 
+values('91679326-06F6-4884-BF4D-1E64BE00354F','CCH0001',N'Lương Tuấn Đạt',N'Nam','2004-11-14',
+N'Huyện Thanh Sơn tỉnh Phú Thọ','0974567728','Datltph32151@gmail.com',0)
 --select * from NhanVien
 Create table KhachHang(
 	ID uniqueidentifier not null DEFAULT (newid()) primary key,
 	MaKH varchar(30),
 	HoTen nvarchar(40),
 	NgaySinh date,
+	GioiTinh nvarchar(10),
 	DiaChi nvarchar(60),
 	SDT varchar(15),
 	Email varchar(30)

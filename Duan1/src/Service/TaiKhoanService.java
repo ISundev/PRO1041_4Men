@@ -3,29 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Service;
+
 import Connection.DBContext;
+import Model.NhanVien;
 import Model.TaiKhoan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author admin
  */
 public class TaiKhoanService {
+
     Connection cn = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
-    public List<TaiKhoan> getAll(){
+
+    public List<TaiKhoan> getAll() {
         List<TaiKhoan> ltk = new ArrayList<>();
         try {
             cn = DBContext.getConnection();
             String sql = "Select * from TaiKhoan where TrangThai = 0";
             pstm = cn.prepareStatement(sql);
             rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 TaiKhoan tk = new TaiKhoan();
                 tk.setId(rs.getString("ID"));
                 tk.setTenDangNhap(rs.getString("TenDangNhap"));
@@ -33,7 +38,7 @@ public class TaiKhoanService {
                 tk.setVaiTro(rs.getString("VaiTro"));
                 tk.setTrangThai(rs.getByte("TrangThai"));
                 ltk.add(tk);
-            }  
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -47,9 +52,8 @@ public class TaiKhoanService {
         }
         return ltk;
     }
-    
-    
-    public Integer addTK(TaiKhoan tk){
+
+    public Integer addTK(TaiKhoan tk) {
         Integer row = null;
         try {
             cn = DBContext.getConnection();
@@ -72,7 +76,8 @@ public class TaiKhoanService {
         }
         return row;
     }
-    public Integer updateTK(TaiKhoan tk){
+
+    public Integer updateTK(TaiKhoan tk) {
         Integer row = null;
         try {
             cn = DBContext.getConnection();
@@ -96,7 +101,8 @@ public class TaiKhoanService {
         }
         return row;
     }
-    public Integer deleteTK(String id){
+
+    public Integer deleteTK(String id) {
         Integer row = null;
         try {
             cn = DBContext.getConnection();
@@ -117,7 +123,8 @@ public class TaiKhoanService {
         }
         return row;
     }
-    public TaiKhoan findByID(String id){
+
+    public TaiKhoan findByID(String id) {
         TaiKhoan tk = null;
         try {
             cn = DBContext.getConnection();
@@ -125,7 +132,7 @@ public class TaiKhoanService {
             pstm = cn.prepareStatement(sql);
             pstm.setString(1, id);
             rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 tk.setId(id);
                 tk.setMatKhau(rs.getString("MatKhau"));
                 tk.setTenDangNhap(rs.getString("TenDangNhap"));
@@ -145,4 +152,39 @@ public class TaiKhoanService {
         }
         return tk;
     }
+
+//    public List<TaiKhoan> getAllPhanTrang(int pageNumber, int pageSize) {
+//        List<TaiKhoan> ltk = new ArrayList<>();
+//        try {
+//            cn = DBContext.getConnection();
+//            int offset = (pageNumber - 1) * pageSize;
+//            String sql = "Select * From (Select ROW_NUMBER() OVER"
+//                    + "(ORDER BY ID From TaiKhoan)) "
+//                    + "where RowNum > ? and RowNum <= ?";
+//            pstm = cn.prepareStatement(sql);
+//            pstm.setInt(1, offset);
+//            pstm.setInt(2, offset + pageSize);
+//            rs = pstm.executeQuery();
+//            while (rs.next()) {
+//                TaiKhoan tk = new TaiKhoan();
+//                tk.setId(rs.getString("ID"));
+//                tk.setTenDangNhap(rs.getString("TenDangNhap"));
+//                tk.setMatKhau(rs.getString("MatKhau"));
+//                tk.setVaiTro(rs.getString("VaiTro"));
+//                tk.setTrangThai(rs.getByte("TrangThai"));
+//                ltk.add(tk);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                cn.close();
+//                pstm.close();
+//                rs.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return ltk;
+//    }
 }

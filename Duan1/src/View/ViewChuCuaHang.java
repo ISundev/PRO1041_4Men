@@ -1195,6 +1195,11 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         jLabel64.setText("Vai trò");
 
         btnthem.setText("Thêm");
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
 
         btnsua.setText("Sửa");
 
@@ -1420,7 +1425,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                             .addComponent(jTextField2)
                             .addComponent(jTextField1)
                             .addComponent(jTextField4))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1731,7 +1736,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1751,7 +1756,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             jpsanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpsanphamLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addGap(16, 16, 16))
         );
         jpsanphamLayout.setVerticalGroup(
@@ -2769,7 +2774,7 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
         btnxacnhan.setVisible(false);
 
         fillTableTK(tks.getAll());
-
+        
     }//GEN-LAST:event_lblquanlytaikhoanMouseClicked
     private void fillTableTK(List<TaiKhoan> ltk) {
         dtm = (DefaultTableModel) tbltaikhoan.getModel();
@@ -2780,7 +2785,12 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
             });
         }
     }
-    
+    private TaiKhoan readForm(){
+        TaiKhoan tk = new TaiKhoan();
+        tk.setTenDangNhap(txttendangnhap.getText());
+        tk.setMatKhau(txtmk.get);
+        return tk;
+    }
     private void rdothuonghieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdothuonghieuActionPerformed
         // TODO add your handling code here:
         
@@ -2839,6 +2849,11 @@ public class ViewChuCuaHang extends javax.swing.JFrame {
 //        List<TaiKhoan> ltk = tks.getAllPhanTrang(currentPage, pageSize);
 //        fillTableTK(ltk);
     }//GEN-LAST:event_btnnexttkActionPerformed
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+        ------
+    }//GEN-LAST:event_btnthemActionPerformed
 
     
     public static void main(String args[]) {

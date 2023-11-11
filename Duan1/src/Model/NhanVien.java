@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author admin
@@ -14,7 +16,7 @@ public class NhanVien {
     String maNV;
     String tenNV;
     String gioiTinh;
-    String ngaySinh;
+    Date ngaySinh;
     String diaChi;
     String sdt;
     String email;
@@ -23,7 +25,7 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(String id, String idtk, String maNV, String tenNV, String gioiTinh, String ngaySinh, String diaChi, String sdt, String email, Byte trangThai) {
+    public NhanVien(String id, String idtk, String maNV, String tenNV, String gioiTinh, Date ngaySinh, String diaChi, String sdt, String email, Byte trangThai) {
         this.id = id;
         this.idtk = idtk;
         this.maNV = maNV;
@@ -76,11 +78,11 @@ public class NhanVien {
         this.gioiTinh = gioiTinh;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -114,6 +116,10 @@ public class NhanVien {
 
     public void setTrangThai(Byte trangThai) {
         this.trangThai = trangThai;
+    }
+    
+    public Object[] toDataRow() {
+        return new Object[]{this.maNV,this.tenNV, this.gioiTinh, this.ngaySinh, this.diaChi,this.sdt,this.email};
     }
     
 }

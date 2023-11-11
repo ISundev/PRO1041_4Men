@@ -9,7 +9,7 @@ package Model;
  * @author admin
  */
 public class ThuongHieu {
-    
+
     String id;
     String ten;
 
@@ -20,8 +20,6 @@ public class ThuongHieu {
         this.id = id;
         this.ten = ten;
     }
-
-    
 
     public String getId() {
         return id;
@@ -38,5 +36,5 @@ public class ThuongHieu {
     public void setTen(String ten) {
         this.ten = ten;
     }
-    
+
 }
